@@ -1,0 +1,134 @@
+:root {
+  --c-background: #b1ece3;
+
+  --c-surface: #ffffff;
+
+  --c-primary: #2b6876;
+  --c-primary-hover: #14364c;
+  --c-primary-active: #0d1b24;
+
+  --c-secondary: #47a8a6;
+  --c-secondary-hover: #2b6876;
+
+  --c-text: #14242f;
+  --c-text-muted: #2b6876;
+  --c-text-inverse: #ffffff;
+
+  --c-border: #70e1d2;
+  --c-border-strong: #2b6876;
+
+  --c-button: var(--c-primary);
+  --c-button-hover: var(--c-primary-hover);
+  --c-button-text: var(--c-text-inverse);
+
+  --c-filter-active: var(--c-primary-active);
+}
+
+[data-theme="dark"] {
+  --c-background: #14242f;
+
+  --c-surface: #14364c;
+
+  --c-primary: #47a8a6;
+  --c-primary-hover: #70e1d2;
+
+  --c-secondary: #70e1d2;
+  --c-secondary-hover: #b1ece3;
+
+  --c-text: #e6f7f5;
+  --c-text-muted: #70e1d2;
+  --c-text-inverse: #14242f;
+
+  --c-border: #2b6876;
+  --c-border-strong: #47a8a6;
+
+  --c-button: #70e1d2;
+  --c-button-hover: #b1ece3;
+  --c-button-text: #14242f;
+}
+
+/* Reset Default Styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  line-height: inherit;
+  color: currentColor;
+  border: none;
+}
+
+/* Base Styles */
+body {
+  background: var(--c-background);
+  color: var(--c-text);
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+main {
+  max-width: 1300px;
+  margin-inline: auto;
+  width: 90%;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
+}
+
+button {
+  background: var(--c-button);
+  color: var(--c-button-text);
+  padding: 0.4em 1em;
+  min-width: 2.5rem;
+}
+
+button:hover {
+  background: var(--c-button-hover);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+.filters .filter-item {
+  display: flex;
+  text-align: left;
+  gap: 0.4em;
+}
+
+.sort-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1.2em;
+  height: 1em;
+
+  line-height: 1;
+}
+
+/* Animations */
+#theme-icon {
+  display: inline-block;
+  transition:
+    transform 0.65s ease,
+    opacity 0.65s ease;
+}
+
+#theme-icon.flip {
+  transform: rotate(180deg) scale(0.8);
+  opacity: 0;
+}
+
+/* Responsive Design */
