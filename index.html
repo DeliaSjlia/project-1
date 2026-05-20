@@ -17,21 +17,59 @@
         </button>
       </div>
       <div class="filters">
-        <button class="filter-item" data-sort="name">
-          Name <span class="sort-icon">⇅</span>
+        <button class="filter-item" data-sort="name" data-sort-direction="none">
+          Name
         </button>
-        <button class="filter-item" data-sort="dueDate">
-          Due Date <span class="sort-icon">⇅</span>
+        <button
+          class="filter-item"
+          data-sort="dueDate"
+          data-sort-direction="none"
+        >
+          Due Date
         </button>
-        <button class="filter-item" data-sort="createdAt">
-          Creation Date <span class="sort-icon">⇅</span>
+        <button
+          class="filter-item"
+          data-sort="createdAt"
+          data-sort-direction="none"
+        >
+          Creation Date
         </button>
-        <button class="filter-item" data-sort="priority">
-          Priority <span class="sort-icon">⇅</span>
+        <button
+          class="filter-item"
+          data-sort="priority"
+          data-sort-direction="none"
+        >
+          Priority
         </button>
-        <button class="filter-item" data-sort="complete">
-          Complete <span class="sort-icon">⇅</span>
+        <button
+          class="filter-item"
+          data-sort="complete"
+          data-sort-direction="none"
+        >
+          Complete
         </button>
+      </div>
+      <div class="container-todo">
+        <ul class="todo-list">
+          <li class="todo-item">
+            <div class="checkbox-area">
+              <input type="checkbox" id="todo1" name="todo1" />
+              Open
+            </div>
+            <div class="content-area">
+              <h2>Name</h2>
+              <div>Content</div>
+              <div>Due Date</div>
+            </div>
+            <div class="priority-area">
+              <div>Priority</div>
+            </div>
+            <div class="actions-area">
+              <button>Edit</button>
+              <button>Delete</button>
+            </div>
+          </li>
+        </ul>
       </div>
     </main>
   </body>

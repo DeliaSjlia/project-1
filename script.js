@@ -1,35 +1,26 @@
 // Dark/Light Theme Toggle
-const themeToggle = document.getElementById("theme-toggle");
+const toggleBtn = document.getElementById("theme-toggle");
 const icon = document.getElementById("theme-icon");
-const savedTheme = localStorage.getItem("theme");
 
-if (savedTheme) {
-  document.documentElement.setAttribute("data-theme", savedTheme);
-  updateIcon(savedTheme);
-}
+toggleBtn.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme;
 
-function updateIcon(theme) {
-  icon.textContent = theme === "dark" ? "☀️" : "🌙";
-}
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
 
-themeToggle.addEventListener("click", () => {
-  const current = document.documentElement.getAttribute("data-theme");
-  const newTheme = current === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = nextTheme;
 
   icon.classList.add("flip");
 
   setTimeout(() => {
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    updateIcon(newTheme);
-
+    icon.textContent = nextTheme === "dark" ? "☀️" : "🌙";
     icon.classList.remove("flip");
-  }, 120);
+  }, 300);
 });
 
 //Sorting Buttons
 let sortBy = null;
 let sortDirection = "none";
+
 const sortButtons = document.querySelectorAll(".filter-item");
 
 sortButtons.forEach((button) => {
@@ -47,21 +38,13 @@ sortButtons.forEach((button) => {
       sortBy = sortByValue;
       sortDirection = "asc";
     }
-    updateSortIcons();
-  });
-});
 
-function updateSortIcons() {
-  sortButtons.forEach((button) => {
-    const icon = button.querySelector("span");
-    const sortByValue = button.dataset.sort;
+    sortButtons.forEach((btn) => {
+      btn.dataset.sortDirection = "none";
+    });
 
-    if (sortBy !== sortByValue || sortDirection === "none") {
-      icon.textContent = "⇅";
-    } else if (sortDirection === "asc") {
-      icon.textContent = "↑";
-    } else {
-      icon.textContent = "↓";
+    if (sortBy) {
+      button.dataset.sortDirection = sortDirection;
     }
   });
-}
+});
