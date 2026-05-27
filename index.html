@@ -3,46 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Project 1</title>
+
+    <title>Project 1 - To-Do List</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <script src="js/utils.js" defer></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+      defer
+    ></script>
+
+    <script
+      src="js/controllers/theme-controller.js"
+      type="module"
+      defer
+    ></script>
+
+    <script
+      src="js/controllers/todo-list-controller.js"
+      type="module"
+      defer
+    ></script>
   </head>
+
   <body>
     <main>
       <h1>To-Do List</h1>
       <p>Welcome to your To-Do List!</p>
       <div class="topbar">
-        <button id="addToDoButton">Create a new todo</button>
-        <button id="theme-toggle">
+        <a class="button" href="create-todo.html"> Create a new todo </a>
+        <button class="button" id="theme-toggle">
           <span id="theme-icon">🌙</span>
         </button>
       </div>
       <div class="filters">
-        <button class="filter-item" data-sort="name" data-sort-direction="none">
+        <button
+          class="button filter-item"
+          data-sort="name"
+          data-sort-direction="none"
+        >
           Name
         </button>
         <button
-          class="filter-item"
+          class="button filter-item"
           data-sort="dueDate"
           data-sort-direction="none"
         >
           Due Date
         </button>
         <button
-          class="filter-item"
+          class="button filter-item"
           data-sort="createdAt"
           data-sort-direction="none"
         >
           Creation Date
         </button>
         <button
-          class="filter-item"
+          class="button filter-item"
           data-sort="priority"
           data-sort-direction="none"
         >
           Priority
         </button>
         <button
-          class="filter-item"
+          class="button filter-item"
           data-sort="complete"
           data-sort-direction="none"
         >
@@ -51,27 +77,42 @@
       </div>
       <div class="container-todo">
         <ul class="todo-list">
-          <li class="todo-item">
-            <div class="checkbox-area">
-              <input type="checkbox" id="todo1" name="todo1" />
-              Open
-            </div>
-            <div class="content-area">
-              <h2>Name</h2>
-              <div>Content</div>
-              <div>Due Date</div>
-            </div>
-            <div class="priority-area">
-              <div>Priority</div>
-            </div>
-            <div class="actions-area">
-              <button>Edit</button>
-              <button>Delete</button>
-            </div>
-          </li>
+          <!--Wird durch Controller + Handlebars gerendert-->
         </ul>
       </div>
     </main>
+    <script id="todo-template" type="text/x-handlebars-template">
+
+      {{#each todos}}
+      <li class="todo-item">
+        <div class="checkbox-area">
+          <input
+            type="checkbox"
+            {{#if complete}}checked{{/if}}
+          />
+          <span>
+            {{#if complete}}Done{{else}}Open{{/if}}
+          </span>
+        </div>
+        <div class="content-area">
+          <h2>{{name}}</h2>
+          <div>{{content}}</div>
+          <div>{{dueDate}}</div>
+        </div>
+        <div class="priority-area">
+          {{priority}}
+        </div>
+        <div class="actions-area">
+          <button
+            class="button"
+            data-action="delete"
+            data-id="{{id}}"
+          >
+            Delete
+          </button>
+        </div>
+      </li>
+      {{/each}}
+    </script>
   </body>
 </html>
-<script src="script.js"></script>
