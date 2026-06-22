@@ -7,7 +7,7 @@ init();
 
 function init() {
   setupSorting();
-  setupDelete();
+  setupToDoActions();
   render();
 }
 
@@ -78,16 +78,24 @@ function setupSorting() {
   });
 }
 
-function setupDelete() {
+function setupToDoActions() {
   const list = document.querySelector(".todo-list");
 
   list.addEventListener("click", async (event) => {
     const id = event.target.dataset.id;
     const action = event.target.dataset.action;
 
-    if (action !== "delete") return;
+    if (!action) return;
 
-    await todoService.deleteTodo(id);
-    render();
+    if (action === "delete") {
+      await todoService.deleteTodo(id);
+      render();
+      return;
+    }
+
+    if (action === "edit") {
+      window.location.href = `/html/create-todo.html?id=${id}`;
+      return;
+    }
   });
 }

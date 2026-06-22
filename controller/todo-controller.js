@@ -36,4 +36,21 @@ export const todoController = {
     todos.length = 0;
     res.sendStatus(204);
   },
+
+  updateTodo(req, res) {
+    const { id } = req.params;
+
+    const index = todos.findIndex((todo) => todo.id === id);
+
+    if (index === -1) {
+      return res.sendStatus(404);
+    }
+
+    todos[index] = {
+      ...todos[index],
+      ...req.body,
+    };
+
+    res.json(todos[index]);
+  },
 };

@@ -20,6 +20,11 @@ class TodoService {
   async updateTodo(todo) {
     return httpService.ajax("PUT", `/todos/${todo.id}`, todo);
   }
+
+  async getTodoById(id) {
+    const todos = await this.getTodos();
+    return todos.find((todo) => todo.id === id);
+  }
 }
 
 export const todoService = new TodoService();

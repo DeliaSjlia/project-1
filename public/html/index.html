@@ -93,7 +93,7 @@
         <div class="content-area">
           <h2>{{name}}</h2>
           <div>{{content}}</div>
-          <div>{{dueDate}}</div>
+          <div>{{formatDate dueDate}}</div>
         </div>
         <div class="priority-area">
           {{priorityIcon priority}}
@@ -105,6 +105,13 @@
             data-id="{{id}}"
           >
             Delete
+          </button>
+          <button
+            class="button"
+            data-action="edit"
+            data-id="{{id}}"
+          >
+            Edit
           </button>
         </div>
       </li>
