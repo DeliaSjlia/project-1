@@ -1,33 +1,24 @@
-import { valueStorage } from "./value-storage.js";
-
-const tokenKey = "token";
-
 class HttpService {
-  ajax(method, url, data, headers) {
+  async ajax(method, url, data, headers) {
     const fetchHeaders = new Headers({
       "content-type": "application/json",
       ...(headers || {}),
     });
 
-    return fetch(url, {
-      method: method,
+    const response = await fetch(url, {
+      method,
       headers: fetchHeaders,
-      body: JSON.stringify(data),
-    }).then((x) => {
-      return x.json();
+      body: data ? JSON.stringify(data) : undefined,
     });
-  }
 
-  setAuthToken(token) {
-    valueStorage.setItem(tokenKey, token);
-  }
+    const text = await response.text();
 
-  hasAuthToken() {
-    return Boolean(valueStorage.getItem(tokenKey));
-  }
-
-  removeAuthToken(token) {
-    valueStorage.setItem(tokenKey, undefined);
+    try {
+      return text ? JSON.parse(text) : null;
+    } catch (err) {
+      console.error("Invalid JSON response:", text);
+      throw err;
+    }
   }
 }
 

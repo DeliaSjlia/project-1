@@ -1,46 +1,50 @@
-import { getTodos, deleteTodo, sortTodos } from "../services/todo-service.js";
+import { todoService } from "../services/todo-service.js";
 
 let sortBy = null;
-
 let sortDirection = "none";
 
-initialize();
+init();
 
-function initialize() {
-  render();
-
+function init() {
   setupSorting();
-
   setupDelete();
+  render();
 }
 
-function render() {
+async function render() {
   const template = document.querySelector("#todo-template");
 
-  if (!template) {
-    return;
-  }
+  if (!template) return;
+
+  const todos = await todoService.getTodos();
+
+  const sortedTodos = sortTodosLocal(todos);
 
   const compiled = Handlebars.compile(template.innerHTML);
 
   const html = compiled({
-    todos: sortTodos(sortBy, sortDirection),
+    todos: sortedTodos,
   });
 
   document.querySelector(".todo-list").innerHTML = html;
 }
 
-function setupDelete() {
-  document.addEventListener("click", (event) => {
-    const action = event.target.dataset.action;
+function sortTodosLocal(todos) {
+  if (!sortBy || sortDirection === "none") return todos;
 
-    if (action !== "delete") {
-      return;
+  return [...todos].sort((a, b) => {
+    let valueA = a[sortBy] ?? "";
+    let valueB = b[sortBy] ?? "";
+
+    if (valueA < valueB) {
+      return sortDirection === "asc" ? -1 : 1;
     }
 
-    deleteTodo(event.target.dataset.id);
+    if (valueA > valueB) {
+      return sortDirection === "asc" ? 1 : -1;
+    }
 
-    render();
+    return 0;
   });
 }
 
@@ -48,33 +52,42 @@ function setupSorting() {
   const buttons = document.querySelectorAll(".filter-item");
 
   buttons.forEach((button) => {
-    button.addEventListener(
-      "click",
+    button.addEventListener("click", () => {
+      const clicked = button.dataset.sort;
 
-      () => {
-        const clicked = button.dataset.sort;
+      if (clicked === sortBy) {
+        sortDirection =
+          sortDirection === "none"
+            ? "asc"
+            : sortDirection === "asc"
+              ? "desc"
+              : "none";
+      } else {
+        sortBy = clicked;
+        sortDirection = "asc";
+      }
 
-        if (clicked === sortBy) {
-          sortDirection =
-            sortDirection === "none"
-              ? "asc"
-              : sortDirection === "asc"
-                ? "desc"
-                : "none";
-        } else {
-          sortBy = clicked;
+      buttons.forEach((btn) => {
+        btn.dataset.sortDirection = "none";
+      });
 
-          sortDirection = "asc";
-        }
+      button.dataset.sortDirection = sortDirection;
 
-        buttons.forEach((btn) => {
-          btn.dataset.sortDirection = "none";
-        });
+      render();
+    });
+  });
+}
 
-        button.dataset.sortDirection = sortDirection;
+function setupDelete() {
+  const list = document.querySelector(".todo-list");
 
-        render();
-      },
-    );
+  list.addEventListener("click", async (event) => {
+    const id = event.target.dataset.id;
+    const action = event.target.dataset.action;
+
+    if (action !== "delete") return;
+
+    await todoService.deleteTodo(id);
+    render();
   });
 }

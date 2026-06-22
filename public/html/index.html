@@ -6,20 +6,19 @@
 
     <title>Project 1 - To-Do List</title>
 
-    <link rel="stylesheet" href="/public/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
 
-    <script src="/public/js/utils.js" defer></script>
-
-    <script src="/public/js/libraries/handlebars.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+    <script src="/js/utils.js"></script>
 
     <script
-      src="/public/js/controllers/theme-controller.js"
+      src="/js/controllers/theme-controller.js"
       type="module"
       defer
     ></script>
 
     <script
-      src="/public/js/controllers/todo-list-controller.js"
+      src="/js/controllers/todo-list-controller.js"
       type="module"
       defer
     ></script>
@@ -30,9 +29,7 @@
       <h1>To-Do List</h1>
       <p>Welcome to your To-Do List!</p>
       <div class="topbar">
-        <a class="button" href="/public/html/create-todo.html">
-          Create a new todo
-        </a>
+        <a class="button" href="/html/create-todo.html"> Create a new todo </a>
         <button class="button" id="theme-toggle">
           <span id="theme-icon">🌙</span>
         </button>

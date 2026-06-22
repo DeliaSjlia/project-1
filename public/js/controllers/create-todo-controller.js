@@ -1,33 +1,42 @@
-import { addTodo } from "../services/todo-service.js";
+import { todoService } from "../services/todo-service.js";
 
 init();
 
 function init() {
   const form = document.querySelector(".todo-form");
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  if (!form) return;
 
-    const title = form.querySelector("input[type='text']").value;
-    const priority = form.querySelector("input[type='number']").value;
-    const dueDate = form.querySelector("input[type='date']").value;
-    const complete = form.querySelector("#complete").checked;
-    const description = form.querySelectorAll("input[type='text']")[1].value;
+  form.addEventListener("submit", handleSubmit);
+}
 
-    const todo = {
-      id: crypto.randomUUID(),
-      name: title,
-      priority: Number(priority),
-      dueDate,
-      complete,
-      content: description,
-      createdAt: new Date().toISOString(),
-    };
+async function handleSubmit(event) {
+  event.preventDefault();
 
-    addTodo(todo);
+  const form = event.target;
+
+  const title = form.querySelector("#title").value;
+  const priority = Number(form.querySelector("#priority").value || 1);
+  const dueDate = form.querySelector("#dueDate").value;
+  const complete = form.querySelector("#complete").checked;
+  const description = form.querySelector("#description").value;
+
+  const todo = {
+    name: title,
+    priority,
+    dueDate,
+    complete,
+    content: description,
+    createdAt: new Date().toISOString(),
+  };
+
+  try {
+    await todoService.createTodo(todo);
 
     form.reset();
-
     window.location.href = "index.html";
-  });
+  } catch (err) {
+    console.error("Failed to create todo:", err);
+    alert("Could not create todo");
+  }
 }

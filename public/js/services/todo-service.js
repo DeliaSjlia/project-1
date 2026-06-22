@@ -2,19 +2,19 @@ import { httpService } from "./http-service.js";
 
 class TodoService {
   async createTodo(todo) {
-    return httpService.ajax("POST", "/todos/", todo);
+    return httpService.ajax("POST", "/todos", todo);
   }
 
   async getTodos() {
-    return httpService.ajax("GET", "/todos/", undefined);
+    return httpService.ajax("GET", "/todos");
   }
 
   async getTodo(id) {
-    return httpService.ajax("GET", `/todos/${id}`, undefined);
+    return httpService.ajax("GET", `/todos/${id}`);
   }
 
   async deleteTodo(id) {
-    return httpService.ajax("DELETE", `/todos/${id}`, undefined);
+    return httpService.ajax("DELETE", `/todos/${id}`);
   }
 
   async updateTodo(todo) {
