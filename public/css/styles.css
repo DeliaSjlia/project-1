@@ -68,6 +68,39 @@ button {
 
 input[type="checkbox"] {
   appearance: none;
+
+  width: 1.2rem;
+  height: 1.2rem;
+
+  border: 2px solid var(--c-border-strong);
+
+  cursor: pointer;
+  background: var(--c-surface);
+
+  display: grid;
+  place-content: center;
+
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]::before {
+  content: "✓";
+
+  color: var(--c-button-text);
+  font-size: 0.8rem;
+  font-weight: bold;
+
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
 }
 
 /* Base Styles */
@@ -173,7 +206,7 @@ input[type="checkbox"]:checked {
 
 .todo-list {
   list-style: none;
-  background: var(--c-surface);
+  padding-left: 0;
 }
 
 /*Form for creating todos*/
@@ -239,9 +272,13 @@ input[type="checkbox"]:checked {
 
 /*Layout*/
 .todo-item {
+  background: var(--c-surface);
+
   display: grid;
   padding: 1em;
   gap: 1em;
+  margin-top: 1em;
+  width: 100%;
   grid-template-columns: auto 1fr auto;
   grid-template-areas: "checkbox content priority actions";
 

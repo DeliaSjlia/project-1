@@ -25,6 +25,11 @@ Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
   }
 });
 
+Handlebars.registerHelper("priorityIcon", function (priority) {
+  const count = Math.min(Number(priority) || 1, 5);
+  return "⚡".repeat(count);
+});
+
 Handlebars.registerHelper("formatDate", function (data) {
   let options = {
     year: "numeric",
@@ -35,5 +40,6 @@ Handlebars.registerHelper("formatDate", function (data) {
     second: "numeric",
     hour12: true,
   };
+
   return new Date(data).toLocaleString("de-DE", options); //ES6
 });

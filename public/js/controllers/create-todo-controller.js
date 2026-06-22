@@ -15,11 +15,16 @@ async function handleSubmit(event) {
 
   const form = event.target;
 
-  const title = form.querySelector("#title").value;
+  const title = form.querySelector("#title").value.trim();
   const priority = Number(form.querySelector("#priority").value || 1);
   const dueDate = form.querySelector("#dueDate").value;
   const complete = form.querySelector("#complete").checked;
   const description = form.querySelector("#description").value;
+
+  if (!title || !dueDate) {
+    alert("Please fill in both title and due date.");
+    return;
+  }
 
   const todo = {
     name: title,
@@ -32,7 +37,6 @@ async function handleSubmit(event) {
 
   try {
     await todoService.createTodo(todo);
-
     form.reset();
     window.location.href = "index.html";
   } catch (err) {

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styles.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
-    <script src="/js/utils.js"></script>
+    <script src="/js/utils/handlebar-helpers.js" defer></script>
 
     <script
       src="/js/controllers/theme-controller.js"
@@ -96,7 +96,7 @@
           <div>{{dueDate}}</div>
         </div>
         <div class="priority-area">
-          {{priority}}
+          {{priorityIcon priority}}
         </div>
         <div class="actions-area">
           <button
